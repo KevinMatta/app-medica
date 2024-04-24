@@ -41,14 +41,10 @@ class AddUser extends StatelessWidget {
   Future<void> registrarUsuario(BuildContext context, String username,
       String password, String email) async {
     final url = Uri.parse('$URL_API/Usuario/UsuarioCrear');
-    print(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     try {
       String requestBody = jsonEncode({
         'usua_Usuario': username,
         'usua_Clave': password,
-        // 'usua_CorreoElectronico': email,
-        'usua_Creacion': '1',
-        'usua_FechaCreacion': DateFormat('yyyy-MM-dd').format(DateTime.now()),
       });
       // Realizar la solicitud POST a la API
       final response = await http.post(url,

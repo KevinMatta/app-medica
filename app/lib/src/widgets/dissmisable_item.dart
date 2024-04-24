@@ -160,11 +160,36 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                   ),
                   key: ValueKey<int?>(users[index].usua_Id),
                   direction: DismissDirection.endToStart,
-                  onDismissed: (DismissDirection direction) {
-                    setState(() {
-                      users.removeAt(index);
-                    });
-                  },
+                  // onDismissed: () {
+                  // },
+                  confirmDismiss: (DismissDirection direction) async {
+    final shouldDelete = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirmar"),
+          content: const Text("¿Estás seguro de que deseas eliminar este elemento?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text("ELIMINAR"),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text("CANCELAR"),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (shouldDelete == true) {
+      setState(() {
+        users.removeAt(index);
+      });
+    }
+    return shouldDelete; // Devuelve true o false según la acción del usuario
+  },
                   child: ListTile(
                     leading: Icon(Icons.person),
                     title: Text(
