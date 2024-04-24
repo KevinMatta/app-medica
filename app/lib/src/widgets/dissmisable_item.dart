@@ -72,7 +72,7 @@ class DismissibleExample extends StatefulWidget {
 }
 
 class _DismissibleExampleState extends State<DismissibleExample> {
-  late List<UsuarioViewModel> users;
+  late List<UsuarioViewModel> users = [];
 
   @override
   void initState() {
@@ -196,6 +196,9 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                     title: Text(
                       ' ${users[index].usua_Usuario}',
                     ),
+                    onTap: () {
+                      print("Elemento seleccionado: ${users[index].usua_Id}");
+                    }
                   ),
                 );
               },
