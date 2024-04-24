@@ -1,0 +1,12 @@
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\bin\Release\net5.0\SistemaMedico.Common.deps.json
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\bin\Release\net5.0\SistemaMedico.Common.dll
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\bin\Release\net5.0\ref\SistemaMedico.Common.dll
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\bin\Release\net5.0\SistemaMedico.Common.pdb
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\SistemaMedico.Common.csproj.AssemblyReference.cache
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\SistemaMedico.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\SistemaMedico.Common.AssemblyInfoInputs.cache
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\SistemaMedico.Common.AssemblyInfo.cs
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\SistemaMedico.Common.csproj.CoreCompileInputs.cache
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\SistemaMedico.Common.dll
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\ref\SistemaMedico.Common.dll
+C:\Users\Eiden\Documents\GitHub\AppMedica\api\SistemaMedico.Common\obj\Release\net5.0\SistemaMedico.Common.pdb

@@ -1,0 +1,101 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "DbmedicoContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": null,
+   "ProjectRootNamespace": "SistemaMedico.DataAcces.Context",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 1,
+   "Tables": [
+      {
+         "Name": "[Acce].[tbPantallas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Acce].[tbPantallasPorRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Acce].[tbRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Acce].[tbUsuarios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gene].[tbCiudades]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gene].[tbEstados]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gene].[tbEstadosCiviles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gene].[tbPersonas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbAlimentos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbDiagnosticos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbDietas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbEjercios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbEnfermedades]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbEnfermedadesPorPersona]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbEntrenamientos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbEstadosSalud]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Medi].[tbTiposSangre]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "vj7500.dbMedico",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}
