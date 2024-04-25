@@ -7,7 +7,7 @@ class DietasPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Stack(
     children: [
-      Center(child: Text('Dietas', style: TextStyle(fontSize: 40, color: Colors.black)),)
+      // Center(child: Text('Dietas', style: TextStyle(fontSize: 40, color: Colors.black)),)
     ],
   );
 }

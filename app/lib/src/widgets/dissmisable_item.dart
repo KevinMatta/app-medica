@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:meditation_app/constant/constant.dart';
 import 'package:meditation_app/model/usuario_viewmodel.dart';
 import 'package:meditation_app/src/screens/test_screen/agregar_usuario.dart';
+import 'package:meditation_app/src/screens/test_screen/editar_usuario.dart';
 import 'package:meditation_app/src/widgets/background.dart';
 import 'package:meditation_app/utils/constants.dart';
 
@@ -156,6 +158,7 @@ class _DismissibleExampleState extends State<DismissibleExample> {
               itemBuilder: (BuildContext context, int index) {
                 return Dismissible(
                   background: Container(
+                    // Icons.delete_forever_rounded
                     color: Colors.red.shade400,
                   ),
                   key: ValueKey<int?>(users[index].usua_Id),
@@ -164,42 +167,60 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                   // },
                   //coment
                   confirmDismiss: (DismissDirection direction) async {
-    final shouldDelete = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Confirmar"),
-          content: const Text("¿Estás seguro de que deseas eliminar este elemento?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: const Text("ELIMINAR"),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text("CANCELAR"),
-            ),
-          ],
-        );
-      },
-    );
+                    Future<void> delete(int? id) async {
+                        String url =
+                            'http://appmedica.somee.com/Usuario/UsuarioEliminar/$id';
+                        final response = await http.delete(
+                          Uri.parse(url),
+                          headers: {
+                            'Content-Type': 'application/json; charset=UTF-8',
+                          },
+                        );
+                        final res = jsonDecode(response.body);
+                        if(res['code'] == '200'){
+                            setState(() {
+                            users.removeAt(index);
+                          });
+                          Navigator.of(context).pop(true);
+                        }else {
+                          Navigator.of(context).pop(false);
+                        }
+                        
+                      }
+                    final shouldDelete = await showDialog<bool>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: turqueza,
+                          iconColor: negro,
+                          title: const Text("Confirmar"),
+                          content: const Text(
+                              "¿Estás seguro de que deseas eliminar este elemento?"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => delete(users[index].usua_Id),
+                              child: const Text("ELIMINAR"),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: const Text("CANCELAR"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
 
-    if (shouldDelete == true) {
-      setState(() {
-        users.removeAt(index);
-      });
-    }
-    return shouldDelete; // Devuelve true o false según la acción del usuario
-  },
+                    return shouldDelete;
+                  },
                   child: ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text(
-                      ' ${users[index].usua_Usuario}',
-                    ),
-                    onTap: () {
-                      print("Elemento seleccionado: ${users[index].usua_Id}");
-                    }
-                  ),
+                      leading: Icon(Icons.person),
+                      title: Text(
+                        ' ${users[index].usua_Usuario}',
+                      ),
+                      onTap: () {
+                        EditUser(users[index].usua_Id);
+                        print("Elemento seleccionado: ${users[index].usua_Id}");
+                      }),
                 );
               },
             ),

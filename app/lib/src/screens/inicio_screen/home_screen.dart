@@ -20,12 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
-  final screens = [
-    TestPage2(),
-    DietasPage(),
-    EjerciciosPage(),
-    TestPage3()
-  ];
+  final screens = [TestPage2(), DietasPage(), EjerciciosPage(), TestPage3()];
   int index = 1;
 
   Widget topWidget(double screenWidth) {
@@ -72,36 +67,36 @@ class _HomeScreenState extends State<HomeScreen> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      extendBody: true,
-      body: Stack(
-        children: [
-          Positioned(
-            top: -160,
-            left: -30,
-            child: topWidget(screenSize.width),
-          ),
-          Positioned(
-            bottom: -180,
-            left: -40,
-            child: bottomWidget(screenSize.width),
-          ),
-          CenterWidget(size: screenSize),
-          GlassContainer(
-              theWidth: screenSize.width, theHeight: screenSize.height),
-          screens[index]
-        ],
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-            backgroundColor: Colors.transparent,
-            index: index,
-            items: <Widget>[
-              Icon(Icons.home_filled, size: 30),
-              Icon(Icons.lunch_dining_rounded, size: 30),
-              Icon(Icons.fitness_center_rounded, size: 30),
-              Icon(Icons.settings, size: 30),
-            ],
-            onTap: (index) => setState(() => this.index = index),
-          )
-    );
+        extendBody: true,
+        body: Stack(
+          children: [
+            Positioned(
+              top: -160,
+              left: -30,
+              child: topWidget(screenSize.width),
+            ),
+            Positioned(
+              bottom: -180,
+              left: -40,
+              child: bottomWidget(screenSize.width),
+            ),
+            CenterWidget(size: screenSize),
+            GlassContainer(
+                theWidth: screenSize.width, theHeight: screenSize.height),
+            screens[index]
+          ],
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Colors.transparent,
+          index: index,
+          animationDuration: Duration(milliseconds: 300),
+          items: <Widget>[
+            Icon(Icons.home_filled, size: 30),
+            Icon(Icons.lunch_dining_rounded, size: 30),
+            Icon(Icons.fitness_center_rounded, size: 30),
+            Icon(Icons.settings, size: 30),
+          ],
+          onTap: (index) => setState(() => this.index = index),
+        ));
   }
 }

@@ -7,8 +7,6 @@ const celeste = Color.fromARGB(255, 70, 221, 255);
 const naranja = Color(0xFFFF4C4B);
 const fondo = Color.fromARGB(255, 8, 6, 141);
 const negrotransparente = Color.fromARGB(136, 0, 0, 0);
-const negro = Color(0x007CBFCF);
-const turqueza = Color(0xB316BFC4);
 const defautlpadding = 20.0;
 
 ///Constants for custom dialog widget

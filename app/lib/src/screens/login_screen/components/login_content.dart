@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:meditation_app/src/screens/test_screen/registrar.dart';
+import 'package:meditation_app/src/screens/test_screen/restablecer_contra.dart';
 import 'package:meditation_app/utils/helper_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:meditation_app/model/usuario_viewmodel.dart';
@@ -166,11 +168,44 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
+  Widget registerButton(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
+      child: ElevatedButton(
+        onPressed: () {
+          String username = _usuarioController.text;
+          String password = _claveController.text;
+
+          if (username.isNotEmpty && password.isNotEmpty) {
+            Navigator.pushNamed(context, RegistrarScreen.routeName);
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          backgroundColor: kSecondaryColor,
+          shape: const StadiumBorder(),
+          elevation: 8,
+          shadowColor: Colors.black87,
+        ),
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget forgotPassword() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, RestablecerScreen.routeName);
+        },
         child: const Text(
           '¿Olvidaste tu contraseña?',
           style: TextStyle(
@@ -188,7 +223,7 @@ class _LoginContentState extends State<LoginContent>
     createAccountContent = [
       inputField('Usuario', Ionicons.person_outline, _usuarioController),
       inputField('Clave', Ionicons.lock_closed_outline, _claveController),
-      loginButton('Registrar'),
+      registerButton('Registrar'),
     ];
 
     loginContent = [
