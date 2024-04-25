@@ -3,8 +3,9 @@ import 'dart:math' as math;
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_app/src/screens/login_screen/components/center_widget/center_widget.dart';
-import 'package:meditation_app/src/screens/test_screen/test_screen.dart';
 import 'package:meditation_app/src/screens/test_screen/test_screen2.dart';
+import 'package:meditation_app/src/screens/test_screen/dieta_screen.dart';
+import 'package:meditation_app/src/screens/test_screen/ejercicio_screen.dart';
 import 'package:meditation_app/src/screens/test_screen/test_screen3.dart';
 
 import 'package:meditation_app/src/widgets/glass_container.dart';
@@ -20,8 +21,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
   final screens = [
-    TestPage(),
     TestPage2(),
+    DietasPage(),
+    EjerciciosPage(),
     TestPage3()
   ];
   int index = 1;
@@ -93,8 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.transparent,
             index: index,
             items: <Widget>[
-              Icon(Icons.home, size: 30),
-              Icon(Icons.health_and_safety, size: 30),
+              Icon(Icons.home_filled, size: 30),
+              Icon(Icons.lunch_dining_rounded, size: 30),
+              Icon(Icons.fitness_center_rounded, size: 30),
               Icon(Icons.settings, size: 30),
             ],
             onTap: (index) => setState(() => this.index = index),
