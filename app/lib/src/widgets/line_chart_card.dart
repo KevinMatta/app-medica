@@ -11,7 +11,7 @@ class LineChartCard extends StatelessWidget{
    @override
   Widget build(BuildContext context) {
     final data = LineData();
-
+    data.fetchData();
     return CustomCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +84,7 @@ class LineChartCard extends StatelessWidget{
                       show: true,
                     ),
                     dotData: FlDotData(show: false),
-                    spots: data.spots,
+                    spots: data.datas,
                   )
                 ],
                 minX: 0,

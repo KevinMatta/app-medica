@@ -6,22 +6,29 @@ import 'package:fl_chart/fl_chart.dart';
 
 
 class LineData{
-  List<FlSpot> data = [];  
-  String apiUrl = 'http://http://appmedica.somee.com/Diagnostico/Listado';
-
+ List<FlSpot> datas = [];
+String apiUrl = 'http://appmedica.somee.com/Diagnostico/Listado';
 
 Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('http://appmedica.somee.com/Diagnostico/Listado'));
-
+  final response = await http.get(Uri.parse(apiUrl));
+  try{
     if (response.statusCode == 200) {
-      final List<dynamic> jsonData = jsonDecode(response.body);
-
-      //covertir datos en FlSpot
-      data = jsonData.map((item) => FlSpot(item['esSa_Id'], item['diag_Peso'])).toList();
+        // List<dynamic> jsonData = jsonDecode(response.body);
+        Map<String, dynamic> jsonData = jsonDecode(response.body);
+      print(jsonData);
+      //convertir datos en FlSpot
+      // datas = jsonData.map((item) => FlSpot(item['esSa_Id'], item['diag_Peso'])).toList();
+        datas = [FlSpot(jsonData['esSa_Id'], jsonData['diag_Peso'])];
+      print(datas);
     } else {
       throw Exception('Error al cargar los datos: ${response.statusCode}');
     }
   }
+  catch (err){
+    print('Esto es el catch');
+    print(err);
+  }
+}
 
 
   final spots = const [

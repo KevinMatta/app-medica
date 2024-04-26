@@ -7,22 +7,24 @@ import 'package:meditation_app/model/salud_model.dart';
 import 'package:meditation_app/utils/constants.dart';
 
 class SaludDetalle {
-  int simon = 0;
-  Future<List<DiagnosticoviewModel>> healtfetch() async {
+  late var simon = 0;
+  Future<void> healtfetch() async {
     String url = '$URL_API/Diagnostico/ListadoDiagDieta?Diag_Id=1';
       final response = await http.get(Uri.parse(url));
 
     try {
-      print('esto es el try');
+      // print('esto es el try');
       final res = jsonDecode(response.body);
       if (res['code'] == 200) {
         final List<dynamic> usuariosData = res['data'];
-        final List<DiagnosticoviewModel> usuarios = usuariosData.map((userData) {
-          return DiagnosticoviewModel.fromJson(userData);
-        }).toList();
-        print(usuariosData);
+        // final List<DiagnosticoviewModel> usuarios = usuariosData.map((userData) {
+        //   return DiagnosticoviewModel.fromJson(userData);
+        // }).toList();
+        // print(usuariosData);
         simon = usuariosData.length;
-        return usuarios;
+        // print(simon);
+        
+        
       } else {
         print('error: ${res['code']}');
         // ScaffoldMessenger.of(context).showSnackBar(
@@ -41,7 +43,6 @@ class SaludDetalle {
         //     duration: Duration(seconds: 2),
         //   ),
         // );
-        return [];
       }
     } catch (error) {
       print('Error en la solicitud HTTP: $error');
@@ -61,18 +62,17 @@ class SaludDetalle {
       //     duration: Duration(seconds: 2),
       //   ),
       // );
-      return [];
     }
   }
-
   List<SaludModel> get healthData{ 
-    return [
+  return [
     SaludModel(
       icon: "assets/icons/ensalada.png",
-       value: simon.toString(), 
-       title: "Dietas"),
+      value: simon.toString(), 
+      title: "Dietas"),
     SaludModel(
       icon: "assets/icons/pesas.png", value: "3", title: "Ejercicios"),
-  ];
+    ];
   }
+ 
 }
