@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
+import 'package:meditation_app/src/screens/test_screen/usuarios_screen.dart';
 import 'package:meditation_app/src/widgets/background.dart';
 import 'package:meditation_app/utils/constants.dart';
 
@@ -52,23 +53,7 @@ class AddUser extends StatelessWidget {
 
       if (response.statusCode == 200) {
         print('Usuario registrado exitosamente');
-        print('Respuesta de la API: ${response.body}');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('usuario registrado exitosamente'),
-            backgroundColor: Colors.green,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            margin: EdgeInsets.only(
-              top: 24,
-              right: 20,
-              left: 20,
-            ),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        Navigator.pushNamed(context, UsuariosScreen.routeName);
       } else {
         print(
             'Error al registrar el usuario. Código de estado: ${response.statusCode} ${response.body}');
@@ -162,7 +147,7 @@ class AddUser extends StatelessWidget {
           }
         },
         child: Text(
-          'Usuarios',
+          'Agregar',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),

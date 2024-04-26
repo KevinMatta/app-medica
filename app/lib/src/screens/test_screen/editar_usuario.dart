@@ -20,23 +20,34 @@ class EditUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
-        child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
-      child: Container(
-          decoration:
-              BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Agregar Usuario'),
+          backgroundColor: kSecondaryColor,
+          foregroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_outlined),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          toolbarHeight: 80,
+        ),
+        body: ClipRect(
+            child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
           child: Container(
-            decoration:
-                BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
-            child: Stack(
-              children: [
-                const CustomBackground(),
-                _buildForm(context),
-              ],
-            ),
-          )),
-    ));
+              decoration:
+                  BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
+              child: Container(
+                decoration:
+                    BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
+                child: Stack(
+                  children: [
+                    const CustomBackground(),
+                    _buildForm(context),
+                  ],
+                ),
+              )),
+        )));
   }
 
   Future<void> EditarUsuario(BuildContext context, String username,

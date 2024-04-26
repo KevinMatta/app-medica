@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:meditation_app/model/usuario_viewmodel.dart';
 import 'package:meditation_app/src/screens/home_screen/home_screen.dart';
 import 'package:meditation_app/src/widgets/glass_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utils/constants.dart';
 import '../animations/change_screen_animation.dart';
@@ -45,8 +46,14 @@ class _LoginContentState extends State<LoginContent>
       final response = await http.get(Uri.parse(apiUrl));
       final res = jsonDecode(response.body);
       if (res['code'] == 200) {
-        final usuario = UsuarioViewModel.fromJson(res['data'][0]);
-        //redirige a splash screen con route
+        // final usuario = UsuarioViewModel.fromJson(res['data']);
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setInt('usua_Id', res['data']['usua_Id']);
+        prefs.setString('usua_Usuario', res['data']['usua_Usuario'] as String);
+        prefs.setString(
+            'usua_Administrador', res['data']['usua_Administrador'] as String);
+        prefs.setString('usua_CorreoElectronico',
+            res['data']['usua_CorreoElectronico'] as String);
         Navigator.pushNamed(context, HomeScreen.routeName);
       } else {
         print('error: ${res['code']}');
@@ -69,7 +76,6 @@ class _LoginContentState extends State<LoginContent>
       }
     } catch (error) {
       print('Error en la solicitud HTTP: $error');
-      print('esto es el catch');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error en la solicitud HTTP: $error'),
@@ -177,7 +183,25 @@ class _LoginContentState extends State<LoginContent>
           String password = _claveController.text;
 
           if (username.isNotEmpty && password.isNotEmpty) {
-            Navigator.pushNamed(context, RegistrarScreen.routeName);
+            Navigator.pushNamed(context, RegistrarScreen.routeName,
+                arguments: {'username': username, 'password': password});
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Por favor ingresa tu usuario y contraseña'),
+                backgroundColor: Colors.red,
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                margin: EdgeInsets.only(
+                  top: 24, // Ajusta este valor según sea necesario
+                  right: 20,
+                  left: 20,
+                ),
+                duration: Duration(seconds: 2),
+              ),
+            );
           }
         },
         style: ElevatedButton.styleFrom(

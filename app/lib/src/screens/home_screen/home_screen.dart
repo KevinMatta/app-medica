@@ -8,6 +8,7 @@ import 'package:meditation_app/src/screens/player_screen/player_screen.dart';
 import 'package:meditation_app/src/screens/premium_screen/premium_screen.dart';
 import 'package:meditation_app/src/screens/profile_screen/profile_screen.dart';
 import 'package:meditation_app/src/widgets/bottom_nav_bar.dart';
+import 'package:meditation_app/utils/constants.dart';
 import 'package:meditation_app/view/home_screen_view_model.dart';
 import 'package:meditation_app/src/widgets/glass_container.dart';
 
@@ -64,6 +65,12 @@ class HomeScreen extends StatelessWidget {
         onModelReady: (model) => {},
         builder: (context, model, child) {
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: turqueza,
+              title: const Text('Home'),
+              centerTitle: true,
+              toolbarHeight: 80,
+            ),
             body: Stack(
               children: [
                 Positioned(

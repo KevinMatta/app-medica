@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:meditation_app/src/screens/test_screen/nueva-contra.dart';
 import 'package:meditation_app/src/widgets/background.dart';
 import 'package:meditation_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:meditation_app/src/screens/test_screen/ingresar_codigo.dart';
 
-class RestablecerScreen extends StatelessWidget {
-  RestablecerScreen({Key? key}) : super(key: key);
-  static String routeName = '/restablecer-screen';
+class IngresarCodigo extends StatelessWidget {
+  IngresarCodigo({Key? key}) : super(key: key);
+  static String routeName = '/ingresar-codigo-screen';
 
-  final TextEditingController _correoController = TextEditingController();
+  final TextEditingController _codigoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +36,15 @@ class RestablecerScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _sendEmail(BuildContext context) async {
+  Future<void> _sendcodigo(BuildContext context) async {
     final url =
-        'https://appmedica.somee.com/Usuario/validarRestablecer?usuario=${_correoController.text}';
+        'http://appmedica.somee.com/Usuario/validarCodigo?codigo=${_codigoController.text}';
     final response = await http.get(Uri.parse(url));
     final res = jsonDecode(response.body);
     if (res['code'] == 200) {
-      Navigator.pushNamed(context, IngresarCodigo.routeName);
+      Navigator.pushNamed(context, NuevaClave.routeName);
     } else {
-      _showSnackBar(context, 'Usuario o correo incorrectos');
+      _showSnackBar(context, 'Codigo Incorrecto');
     }
   }
 
@@ -82,7 +82,7 @@ class RestablecerScreen extends StatelessWidget {
             ),
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Ingrese su usuario o correo para enviar el código de confirmación',
+              'Ingrese el codigo enviado a su correo para restablecer la contraseña',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.black),
             ),
@@ -97,7 +97,7 @@ class RestablecerScreen extends StatelessWidget {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(30),
                 child: TextField(
-                  controller: _correoController,
+                  controller: _codigoController,
                   textAlignVertical: TextAlignVertical.bottom,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -106,8 +106,8 @@ class RestablecerScreen extends StatelessWidget {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintText: 'Ingrese su correo electrónico',
-                    prefixIcon: Icon(Icons.email),
+                    hintText: 'Ingrese el codigo',
+                    prefixIcon: Icon(Icons.key_rounded),
                   ),
                 ),
               ),
@@ -122,18 +122,17 @@ class RestablecerScreen extends StatelessWidget {
                 foregroundColor: MaterialStateProperty.all(Colors.white),
               ),
               onPressed: () {
-                String email = _correoController.text;
+                String codigo = _codigoController.text;
 
-                if (email.isNotEmpty) {
-                  print('Correo electrónico: $email');
-                  _sendEmail(context);
+                if (codigo.isNotEmpty) {
+                  print('codigo: $codigo');
+                  _sendcodigo(context);
                 } else {
-                  _showSnackBar(
-                      context, 'Por favor ingrese su correo electrónico');
+                  _showSnackBar(context, 'Por favor ingrese el codigo');
                 }
               },
               child: Text(
-                'Enviar Código',
+                'Verificar',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),

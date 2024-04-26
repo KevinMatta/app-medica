@@ -20,7 +20,8 @@ class DismissibleExampleApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Usuarios'),
-          backgroundColor: turqueza,
+          backgroundColor: kSecondaryColor,
+          foregroundColor: Colors.white,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios_outlined),
             onPressed: () => Navigator.of(context).pop(),
@@ -36,7 +37,8 @@ class DismissibleExampleApp extends StatelessWidget {
                     return Scaffold(
                       appBar: AppBar(
                         title: const Text('Agregar Usuario'),
-                        backgroundColor: turqueza,
+                        backgroundColor: kSecondaryColor,
+                        foregroundColor: Colors.white,
                         leading: IconButton(
                           icon: Icon(Icons.arrow_back_ios_outlined),
                           onPressed: () => Navigator.of(context).pop(),
@@ -167,26 +169,28 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                   // },
                   //coment
                   confirmDismiss: (DismissDirection direction) async {
-                    Future<void> delete(int? id) async {
-                        String url =
-                            'http://appmedica.somee.com/Usuario/UsuarioEliminar/$id';
-                        final response = await http.delete(
-                          Uri.parse(url),
-                          headers: {
-                            'Content-Type': 'application/json; charset=UTF-8',
-                          },
-                        );
-                        final res = jsonDecode(response.body);
-                        if(res['code'] == '200'){
-                            setState(() {
-                            users.removeAt(index);
-                          });
-                          Navigator.of(context).pop(true);
-                        }else {
-                          Navigator.of(context).pop(false);
-                        }
-                        
+                    Future<bool> delete(int? id) async {
+                      String url =
+                          'http://appmedica.somee.com/Usuario/UsuarioEliminar/$id';
+                      final response = await http.delete(
+                        Uri.parse(url),
+                        headers: {
+                          'Content-Type': 'application/json; charset=UTF-8',
+                        },
+                      );
+                      final res = jsonDecode(response.body);
+                      print('esto da 200 $res');
+                      if (res['code'] == 200) {
+                        setState(() {
+                          users.removeAt(index);
+                        });
+                        print('retornando verdadero');
+                        return true;
+                      } else {
+                        return false;
                       }
+                    }
+
                     final shouldDelete = await showDialog<bool>(
                       context: context,
                       builder: (BuildContext context) {
@@ -198,10 +202,35 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                               "¿Estás seguro de que deseas eliminar este elemento?"),
                           actions: <Widget>[
                             TextButton(
-                              onPressed: () => delete(users[index].usua_Id),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(Colors.red
+                                        .shade300), // Cambia el color de fondo
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(Colors
+                                        .white), // Cambia el color del texto
+                              ),
+                              onPressed: () async {
+                                bool deleteSuccess =
+                                    await delete(users[index].usua_Id);
+                                print('deletesucces: $deleteSuccess');
+                                if (deleteSuccess) {
+                                  Navigator.of(context).pop(true);
+                                } else {
+                                  Navigator.of(context).pop(false);
+                                }
+                              },
                               child: const Text("ELIMINAR"),
                             ),
                             TextButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(Colors
+                                        .black54), // Cambia el color de fondo
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(Colors
+                                        .white), // Cambia el color del texto
+                              ),
                               onPressed: () => Navigator.of(context).pop(false),
                               child: const Text("CANCELAR"),
                             ),
@@ -218,7 +247,13 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                         ' ${users[index].usua_Usuario}',
                       ),
                       onTap: () {
-                        EditUser(users[index].usua_Id);
+                        // EditUser(users[index].usua_Id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  EditUser(users[index].usua_Id),
+                            ));
                         print("Elemento seleccionado: ${users[index].usua_Id}");
                       }),
                 );
