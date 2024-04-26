@@ -15,9 +15,9 @@ class DashboardWidget extends StatelessWidget {
           children: [
            
             const SizedBox(height: 18),
-            const ActivityDetailsCard(),
-            const SizedBox(height: 18),
             const LineChartCard(),
+            const SizedBox(height: 18),
+             ActivityDetailsCard(),
             
           ],
         ),

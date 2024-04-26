@@ -10,7 +10,7 @@ class ActivityDetailsCard extends StatelessWidget{
   @override
   Widget build(BuildContext context){
       final saludDetalle = SaludDetalle();
-
+      saludDetalle.healtfetch();
     return GridView.builder(
         itemCount: saludDetalle.healthData.length,
       shrinkWrap: true,
@@ -27,8 +27,8 @@ class ActivityDetailsCard extends StatelessWidget{
           children: [
             Image.asset(
               saludDetalle.healthData[index].icon,
-              width: 60,
-              height: 60,
+              width: 48,
+              height: 48,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15, bottom: 4),

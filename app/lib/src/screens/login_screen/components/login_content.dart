@@ -45,7 +45,7 @@ class _LoginContentState extends State<LoginContent>
       final response = await http.get(Uri.parse(apiUrl));
       final res = jsonDecode(response.body);
       if (res['code'] == 200) {
-        final usuario = UsuarioViewModel.fromJson(res['data'][0]);
+        final usuario = UsuarioViewModel.fromJson(res['data']);
         //redirige a splash screen con route
         Navigator.pushNamed(context, HomeScreen.routeName);
       } else {

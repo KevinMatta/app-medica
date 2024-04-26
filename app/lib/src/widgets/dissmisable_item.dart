@@ -74,7 +74,7 @@ class DismissibleExample extends StatefulWidget {
 }
 
 class _DismissibleExampleState extends State<DismissibleExample> {
-  late List<UsuarioViewModel> users = [];
+  List<UsuarioViewModel> users = [];
 
   @override
   void initState() {
