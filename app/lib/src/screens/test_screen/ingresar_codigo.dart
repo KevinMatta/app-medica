@@ -5,11 +5,23 @@ import 'package:meditation_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class IngresarCodigo extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+
+class IngresarCodigo extends StatefulWidget {
   IngresarCodigo({Key? key}) : super(key: key);
   static String routeName = '/ingresar-codigo-screen';
 
+  @override
+  _IngresarCodigoState createState() => _IngresarCodigoState();
+}
+
+class _IngresarCodigoState extends State<IngresarCodigo> {
   final TextEditingController _codigoController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +29,7 @@ class IngresarCodigo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Restablecer Contraseña'),
+          title: const Text('Validar Código'),
           backgroundColor: kSecondaryColor,
           foregroundColor: Colors.white,
           leading: IconButton(
@@ -37,11 +49,13 @@ class IngresarCodigo extends StatelessWidget {
   }
 
   Future<void> _sendcodigo(BuildContext context) async {
-    final url =
-        'http://appmedica.somee.com/Usuario/validarCodigo?codigo=${_codigoController.text}';
+    final url = '$URL_API/Usuario/ValidarCodigo?item=${_codigoController.text}';
     final response = await http.get(Uri.parse(url));
     final res = jsonDecode(response.body);
     if (res['code'] == 200) {
+      print(res['data']);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('usua_Id', res['data'][0]['usua_Id']);
       Navigator.pushNamed(context, NuevaClave.routeName);
     } else {
       _showSnackBar(context, 'Codigo Incorrecto');

@@ -170,8 +170,7 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                   //coment
                   confirmDismiss: (DismissDirection direction) async {
                     Future<bool> delete(int? id) async {
-                      String url =
-                          'http://appmedica.somee.com/Usuario/UsuarioEliminar/$id';
+                      String url = '$URL_API/Usuario/UsuarioEliminar/$id';
                       final response = await http.delete(
                         Uri.parse(url),
                         headers: {
@@ -252,7 +251,7 @@ class _DismissibleExampleState extends State<DismissibleExample> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  EditUser(users[index].usua_Id),
+                                  EditUser(id: users[index].usua_Id),
                             ));
                         print("Elemento seleccionado: ${users[index].usua_Id}");
                       }),

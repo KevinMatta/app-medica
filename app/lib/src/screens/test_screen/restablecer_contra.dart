@@ -38,7 +38,7 @@ class RestablecerScreen extends StatelessWidget {
 
   Future<void> _sendEmail(BuildContext context) async {
     final url =
-        'https://appmedica.somee.com/Usuario/validarRestablecer?usuario=${_correoController.text}';
+        '$URL_API/Usuario/validarRestablecer?usuario=${_correoController.text}';
     final response = await http.get(Uri.parse(url));
     final res = jsonDecode(response.body);
     if (res['code'] == 200) {
@@ -133,7 +133,7 @@ class RestablecerScreen extends StatelessWidget {
                 }
               },
               child: Text(
-                'Enviar Código',
+                'Ingresar',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),

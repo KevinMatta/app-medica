@@ -10,7 +10,7 @@ import 'package:meditation_app/src/screens/test_screen/restablecer_contra.dart';
 import 'package:meditation_app/utils/helper_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:meditation_app/model/usuario_viewmodel.dart';
-import 'package:meditation_app/src/screens/home_screen/home_screen.dart';
+import 'package:meditation_app/src/screens/inicio_screen/home_screen.dart';
 import 'package:meditation_app/src/widgets/glass_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,15 +39,14 @@ class _LoginContentState extends State<LoginContent>
   late final TextEditingController _claveController = TextEditingController();
 
   Future<void> _loginUser(String username, String password) async {
-    String apiUrl =
-        'http://appmedica.somee.com/Usuario/Login?Usuario=$username&Contra=$password';
+    String apiUrl = '$URL_API/Usuario/Login?Usuario=$username&Contra=$password';
 
+    final prefs = await SharedPreferences.getInstance();
+    final response = await http.get(Uri.parse(apiUrl));
+    final res = jsonDecode(response.body);
+    print(res);
     try {
-      final response = await http.get(Uri.parse(apiUrl));
-      final res = jsonDecode(response.body);
       if (res['code'] == 200) {
-        // final usuario = UsuarioViewModel.fromJson(res['data']);
-        final prefs = await SharedPreferences.getInstance();
         prefs.setInt('usua_Id', res['data']['usua_Id']);
         prefs.setString('usua_Usuario', res['data']['usua_Usuario'] as String);
         prefs.setString(

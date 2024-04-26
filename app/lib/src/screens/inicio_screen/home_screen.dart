@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
   final screens = [TestPage2(), DietasPage(), EjerciciosPage(), TestPage3()];
-  int index = 1;
+  int index = 0;
 
   Widget topWidget(double screenWidth) {
     return Transform.rotate(

@@ -50,21 +50,22 @@ class _EjerciciosPageState extends State<EjerciciosPage> {
   }
 
   Future<void> _cargarEjercicios() async {
-    final url = Uri.parse(
-        'http://appmedica.somee.com/Diagnostico/ListadoDiagEntre?Diag_Id=$Diag_Id');
-    final response = await http.get(url);
+    if (Diag_Id != 0) {
+      final url =
+          Uri.parse('$URL_API/Diagnostico/ListadoDiagEntre?Diag_Id=$Diag_Id');
+      final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final List<dynamic> res = data['data'];
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final List<dynamic> res = data['data'];
 
-      setState(() {
-        _ejercicios = res.cast<Map<String, dynamic>>();
-        _isLoading = false;
-      });
-    } else {
-      // Si la solicitud no fue exitosa, muestra un mensaje de error
-      print('Error al cargar los ejercicios: ${response.statusCode}');
+        setState(() {
+          _ejercicios = res.cast<Map<String, dynamic>>();
+          _isLoading = false;
+        });
+      } else {
+        print('Error al cargar los ejercicios: ${response.statusCode}');
+      }
     }
   }
 
@@ -77,14 +78,19 @@ class _EjerciciosPageState extends State<EjerciciosPage> {
   }
 
   Future<void> _cargarDiagId() async {
-    final url =
-        'http://appmedica.somee.com/Diagnostico/BuscarPersona?Usua_Id=$usua_Id';
+    final url = '$URL_API/Diagnostico/BuscarPersona?Usua_Id=$usua_Id';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<dynamic> res = data['data'];
+
       setState(() {
-        Diag_Id = res[0]['diag_Id'];
+        if (res.length > 0) {
+          print(res.length);
+          Diag_Id = res[0]['diag_Id'];
+        } else {
+          Diag_Id = 0;
+        }
       });
     }
     _cargarEjercicios();

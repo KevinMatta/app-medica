@@ -1,14 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:meditation_app/src/screens/login_screen/login_screen.dart';
 import 'package:meditation_app/src/widgets/background.dart';
 import 'package:meditation_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class NuevaClave extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+
+class NuevaClave extends StatefulWidget {
   NuevaClave({Key? key}) : super(key: key);
   static String routeName = '/nueva-contra-screen';
 
+  @override
+  _NuevaClaveState createState() => _NuevaClaveState();
+}
+
+class _NuevaClaveState extends State<NuevaClave> {
   final TextEditingController _codigoController = TextEditingController();
+  int id = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getID(context);
+  }
+
+  Future<void> cambiarContra(BuildContext context) async {
+    final url = '$URL_API/Usuario/RestablacerContrasena';
+    final response = await http.put(Uri.parse(url), body: {
+      'usua_Id': id.toString(),
+      'usua_Clave': _codigoController.text,
+    });
+    final res = jsonDecode(response.body);
+    if (res['code'] == 200) {
+      print(id);
+      print(res);
+      Navigator.pushNamed(context, LoginScreen.routeName);
+    } else {
+      _showSnackBar(context, 'Error al restablecer la contraseña');
+    }
+  }
+
+  Future<void> getID(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getInt('usua_Id') ?? 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +151,7 @@ class NuevaClave extends StatelessWidget {
 
                 if (codigo.isNotEmpty) {
                   print('codigo: $codigo');
+                  cambiarContra(context);
                 } else {
                   _showSnackBar(
                       context, 'Por favor ingrese su nueva contraseña');

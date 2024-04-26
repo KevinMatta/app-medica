@@ -9,14 +9,25 @@ import 'package:flutter/material.dart';
 import 'package:meditation_app/src/widgets/background.dart';
 import 'package:meditation_app/utils/constants.dart';
 
-class EditUser extends StatelessWidget {
+class EditUser extends StatefulWidget {
   static String routeName = '/editUsuario-screen';
-  late int id;
-  EditUser(int? id, {Key? key}) : super(key: key);
+  final int? id;
 
+  const EditUser({Key? key, this.id}) : super(key: key);
+
+  @override
+  State<EditUser> createState() => _EditUserState();
+}
+
+class _EditUserState extends State<EditUser> {
   final TextEditingController _usuarioController = TextEditingController();
   final TextEditingController _claveController = TextEditingController();
   final TextEditingController _correoController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +69,8 @@ class EditUser extends StatelessWidget {
         'usua_Id': id,
         'usua_Usuario': username,
         'usua_Clave': password,
+        'usua_RolId': 1,
       });
-      // Realizar la solicitud POST a la API
       final response = await http.put(url,
           headers: {'Content-Type': 'application/json'}, body: requestBody);
       final res = jsonDecode(response.body);
@@ -138,6 +149,7 @@ class EditUser extends StatelessWidget {
   }
 
   Widget Boton(BuildContext context, String title) {
+    int? id = widget.id as int;
     return Padding(
       padding: const EdgeInsets.all(
           16.0), // Ajusta el valor del margen según sea necesario
@@ -153,7 +165,8 @@ class EditUser extends StatelessWidget {
           String email = _correoController.text;
 
           if (username.isNotEmpty && password.isNotEmpty && email.isNotEmpty) {
-            print('Nombre: $username, Clave: $password, Correo: $email');
+            print(
+                'Nombre: $username, Clave: $password, Correo: $email, ID: $id');
             EditarUsuario(context, username, password, email, id);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(

@@ -60,24 +60,25 @@ class _DietasPageState extends State<DietasPage> {
   @override
   void initState() {
     super.initState();
-    // Llamar a la función para cargar los datos de la API
     _cargarUsuaId();
   }
 
   Future<void> _cargarComidas() async {
-    final url = Uri.parse(
-        'http://appmedica.somee.com/Diagnostico/ListadoDiagDieta?Diag_Id=$Diag_Id');
-    final response = await http.get(url);
+    if (Diag_Id != 0) {
+      final url =
+          Uri.parse('$URL_API/Diagnostico/ListadoDiagDieta?Diag_Id=$Diag_Id');
+      final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final List<dynamic> res = data['data'];
-      setState(() {
-        _comidas = res.cast<Map<String, dynamic>>();
-        _isLoading = false;
-      });
-    } else {
-      print('Error al cargar las comidas: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final List<dynamic> res = data['data'];
+        setState(() {
+          _comidas = res.cast<Map<String, dynamic>>();
+          _isLoading = false;
+        });
+      } else {
+        print('Error al cargar las comidas: ${response.statusCode}');
+      }
     }
   }
 
@@ -90,14 +91,17 @@ class _DietasPageState extends State<DietasPage> {
   }
 
   Future<void> _cargarDiagId() async {
-    final url =
-        'http://appmedica.somee.com/Diagnostico/BuscarPersona?Usua_Id=$usua_Id';
+    final url = '$URL_API/Diagnostico/BuscarPersona?Usua_Id=$usua_Id';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<dynamic> res = data['data'];
       setState(() {
-        Diag_Id = res[0]['diag_Id'];
+        if (res.length > 0) {
+          Diag_Id = res[0]['diag_Id'];
+        } else {
+          Diag_Id = 0;
+        }
       });
     }
     _cargarComidas();
